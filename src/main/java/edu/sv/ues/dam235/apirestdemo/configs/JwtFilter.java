@@ -39,11 +39,16 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String path = request.getServletPath();
+        String path = request.getServletPath() != null ? request.getServletPath() : "";
+        String uri = request.getRequestURI() != null ? request.getRequestURI() : "";
         if (path.startsWith("/auth/")
+                || uri.contains("/auth/")
                 || path.startsWith("/swagger-ui/")
+                || uri.contains("/swagger-ui/")
                 || path.startsWith("/v3/")
-                || path.startsWith("/h2-console")) {
+                || uri.contains("/v3/")
+                || path.startsWith("/h2-console")
+                || uri.contains("/h2-console")) {
             filterChain.doFilter(request, response);
             return;
         }

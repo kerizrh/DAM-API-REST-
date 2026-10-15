@@ -64,7 +64,11 @@ public class AuthServicesImpl implements AuthServices {
     @Override
     public boolean register(RegisterDTO registerDTO) {
         try {
-            if (userRepository.findByEmail(registerDTO.getEmail()) != null) {
+            if (registerDTO == null || registerDTO.getEmail() == null || registerDTO.getEmail().trim().isEmpty()
+                    || registerDTO.getPassword() == null || registerDTO.getPassword().trim().isEmpty()) {
+                return false;
+            }
+            if (userRepository.findByEmail(registerDTO.getEmail().trim()) != null) {
                 return false;
             }
             User user = new User();

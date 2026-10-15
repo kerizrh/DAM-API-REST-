@@ -61,7 +61,7 @@ La API estará disponible en:
 | **Auth** | `POST` | `/auth/login` | Público | Inicia sesión y retorna el token JWT. |
 | **Auth** | `POST` | `/auth/register` | Público | Registra una nueva cuenta de usuario. |
 | **Auth** | `POST` | `/auth/logout` | Protegido | Cierra la sesión activa. |
-| **Productos** | `GET` | `/products` | Protegido | Retorna la lista de todos los productos. |
+| **Productos** | `GET` | `/products` ó `/productos` | Protegido | Retorna la lista de todos los productos. |
 | **Productos** | `GET` | `/products/{id}` | Protegido | Retorna un producto específico por ID. |
 | **Productos** | `POST` | `/products` | Protegido | Inserta un nuevo producto. |
 | **Productos** | `PUT` | `/products/{id}` | Protegido | Modifica un producto existente. |
@@ -69,7 +69,27 @@ La API estará disponible en:
 
 ---
 
-## 🧪 Pruebas con Postman
+## 🧪 Pruebas Automatizadas (Integration Tests)
+
+El proyecto incluye una suite de pruebas de integración completas basadas en `MockMvc`:
+- **Clase:** `edu.sv.ues.dam235.apirestdemo.AuthAndProductCrudIntegrationTests`
+- **Cobertura de Pruebas:**
+  1. Acceso no autorizado a rutas protegidas sin token (HTTP 401).
+  2. Registro exitoso de nuevas cuentas de usuario en `/auth/register` (HTTP 201).
+  3. Rechazo de registros duplicados (HTTP 400).
+  4. Login con las nuevas credenciales y emisión de token JWT (HTTP 200).
+  5. Consulta de catálogo mediante `/products` y el alias oficial en español `/productos` (HTTP 200).
+  6. Ciclo CRUD completo de Productos: Creación (POST 201), Consulta por ID (GET 200), Modificación (PUT 200) y Eliminación (DELETE 200).
+  7. Logout y cierre de sesión (HTTP 200).
+
+Para ejecutar toda la suite de pruebas automatizadas:
+```bash
+.\mvnw.cmd test
+```
+
+---
+
+## 📮 Pruebas con Postman
 
 En la carpeta `postman/` se encuentra la colección lista para importar:
 - `postman/apirestdemo.postman_collection.json`
@@ -77,3 +97,4 @@ En la carpeta `postman/` se encuentra la colección lista para importar:
 ### Credenciales de Prueba Iniciales:
 - **Usuario:** `mmartinez@temp.com`
 - **Contraseña:** `Temp123.`
+

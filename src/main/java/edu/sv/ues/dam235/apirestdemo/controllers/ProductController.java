@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/products")
+@RequestMapping({"/products", "/productos"})
 public class ProductController {
 
     private final ProductServices productServices;
